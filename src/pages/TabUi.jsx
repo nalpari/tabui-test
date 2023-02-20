@@ -1,47 +1,45 @@
+import { useEffect, useState } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import { useState } from 'react'
+
+import menuList from '@/util/menu-list'
 
 export default function TabUi() {
   const [items, setItems] = useState([])
+  const [activeKey, setActiveKey] = useState()
 
   const handleMenuClick = (key) => {
-    console.log(key)
+    setItems((prev) => [...prev, menuList[key]])
+    setActiveKey(key)
+  }
+
+  const handleTabClick = (key) => {
+    setActiveKey(key)
   }
 
   return (
     <>
-      <Nav onSelect={(selectedKey) => handleMenuClick(selectedKey)}>
-        <Nav.Item>
-          <Nav.Link eventKey="link-0">Active</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-1">Alerts</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-2">Buttons</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="link-3">Pagenation</Nav.Link>
-        </Nav.Item>
+      <Nav onSelect={handleMenuClick}>
+        {menuList?.map((menu) => (
+          <Nav.Item key={menu.id}>
+            <Nav.Link eventKey={menu.id}>{menu.name}</Nav.Link>
+          </Nav.Item>
+        ))}
       </Nav>
 
-      {items && (
+      {items.length > 0 && (
         <Tabs
-          defaultActiveKey="profile"
+          activeKey={activeKey}
           id="uncontrolled-tab-example"
           className="mb-3"
+          onSelect={handleTabClick}
         >
-          <Tab eventKey="home" title="Home">
-            asdf
-          </Tab>
-          <Tab eventKey="profile" title="Profile">
-            1234
-          </Tab>
-          <Tab eventKey="contact" title="Contact">
-            qwer
-          </Tab>
+          {items?.map((item) => (
+            <Tab key={item.id} eventKey={item.id} title={item.name}>
+              {item.component}
+            </Tab>
+          ))}
         </Tabs>
       )}
     </>
