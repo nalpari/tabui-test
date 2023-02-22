@@ -10,6 +10,16 @@ export default function TabUi() {
   const [activeKey, setActiveKey] = useState()
 
   const handleMenuClick = (key) => {
+    //중복탭 적용 버전
+    // const idx = items.length
+    // const clickedMenu = menuList[key]
+    // clickedMenu.index = idx
+    //
+    // const newItems = [...items]
+    // newItems.push(clickedMenu)
+    //
+    // setItems(newItems)
+    //중복탭 미적용 버전
     setItems((prev) => [...prev, menuList[key]])
     setActiveKey(key)
   }
