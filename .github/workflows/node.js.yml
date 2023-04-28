@@ -32,7 +32,7 @@ jobs:
     #- run: npm run build --if-present
     
     - name: Configure AWS credentials from Test account
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v3
       with:
         role-to-assume: arn:aws:iam::391694062894:role/s3-full
         aws-region: ap-northeast-2
