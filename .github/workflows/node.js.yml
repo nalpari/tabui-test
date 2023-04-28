@@ -42,14 +42,15 @@ jobs:
     - name: archive tabui
       uses: actions/setup-node@v3
     - run: ls -al
-    - run: tar -czf ./tabui.tar.gz ./dist/*
+    - run: zip -r ./$GITHUB_SHA.zip ./dist/*
+    #- run: tar -czf ./tabui.tar.gz ./dist/*
         
     - name: upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./tabui.tar.gz s3://devgrr-bucket/archive/
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://devgrr-bucket/archive/
 
     - name: deploy with AWS codeDeploy
       run: aws deploy create-deployment
         --application-name githubaction-test
         --deployment-config-name CodeDeployDefault.OneAtATime
         --deployment-group-name githubaction-test-group
-        --s3-location bucket=devgrr-bucket,bundleType=tgz,key=archive/tabui.tar.gz
+        --s3-location bucket=devgrr-bucket,bundleType=zip,key=archive/$GITHUB_SHA.zip
