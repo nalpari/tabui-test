@@ -34,7 +34,7 @@ jobs:
     - name: archive tabui
       uses: actions/setup-node@v3
     - run: ls -al
-    - run: tar -cvfz ./tabui.tar.gz ./dist/*
+    - run: tar -czf ./tabui.tar.gz ./dist/*
 
     - name: AWS configure credentials
       uses: aws-actions/configure-aws-credentials@v1
