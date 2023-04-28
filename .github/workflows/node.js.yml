@@ -34,3 +34,14 @@ jobs:
     - name: archive tabui
       uses: actions/setup-node@v3
     - run: ls -al
+    - run: tar -cvfz ./tabui.tar.gz ./dist/*
+
+    - name: AWS configure credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+        
+    - name: upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./tabui.tar.gz s3://devgrr-bucket/archive/
