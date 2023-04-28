@@ -49,8 +49,4 @@ jobs:
       run: aws s3 cp --region ap-northeast-2 ./tabui.zip s3://devgrr-bucket/archive/
 
     - name: deploy with AWS codeDeploy
-      run: aws deploy create-deployment
-        --application-name githubaction-test
-        --deployment-config-name CodeDeployDefault.OneAtATime
-        --deployment-group-name githubaction-test-group
-        --s3-location bucket=devgrr-bucket,bundleType=zip,key=archive/tabui.zip
+      run: aws deploy create-deployment --application-name githubaction-test --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name githubaction-test-group --s3-location bucket=devgrr-bucket,bundleType=zip,key=archive/tabui.zip
