@@ -50,6 +50,6 @@ jobs:
     - name: deploy with AWS codeDeploy
       run: aws deploy create-deployment
         --application-name githubaction-test
-        --deployment-config-name CodeDeployDefault.OneAtATime
+        --deployment-config-name CodeDeployDefault.AllAtOnce
         --deployment-group-name githubaction-test-group
         --s3-location bucket=devgrr-bucket,bundleType=tgz,key=archive/tabui.tar.gz
